@@ -1,0 +1,44 @@
+
+
+CREATE TABLE [dbo].[StudentReg] (
+    [Id]      INT           IDENTITY (1, 1) NOT NULL,
+    [Name]    NVARCHAR (50) NULL,
+    [City]    NVARCHAR (50) NULL,
+    [Address] NVARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+create proc [dbo].[AddNewStudent](@Name varchar(50),@City varchar(50), @Address varchar(50))
+as
+begin
+Insert into [dbo].[StudentReg]  values (@Name, @City, @Address)
+end
+
+CREATE PROCEDURE [dbo].[DeleteStudent]
+	(@Id Int)
+AS
+begin
+	Delete from StudentReg where Id=@Id
+end
+
+CREATE PROCEDURE [dbo].[GetSingleStudents]
+@Id int
+AS
+begin
+	SELECT Id,Name,City,Address from StudentReg where Id=@Id
+end
+
+CREATE PROCEDURE [dbo].[GetStudents]
+AS
+begin
+	SELECT Id,Name,City,Address from StudentReg
+end
+CREATE PROCEDURE [dbo].[UpdateStudent]
+	(@Id int,
+	@Name varchar(50),
+	@City varchar(50),
+	@Address varchar(50))
+AS
+begin
+	Update StudentReg set Name=@Name,City=@City,Address=@Address where Id=@Id
+end
